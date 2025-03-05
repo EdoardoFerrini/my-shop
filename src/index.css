@@ -68,3 +68,12 @@ input[type="email"].error {
 .btn.lg {
   @apply text-2xl;
 }
+
+.table-auto th,
+.table-auto td {
+  @apply border-b border-b-blue-500 py-4 px-2;
+}
+
+.table-auto.hover tr:hover {
+  @apply bg-blue-500;
+}
