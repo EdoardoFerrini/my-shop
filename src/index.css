@@ -21,6 +21,22 @@ body {
   @apply max-w-sm mx-auto;
 }
 
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="email"] {
+  @apply text-black;
+}
+
+textarea.error,
+input[type="password"].error,
+input[type="text"].error,
+input[type="number"].error,
+input[type="email"].error {
+  @apply bg-red-300;
+}
+
 .btn {
   @apply px-5 py-2 rounded-full m-1  font-bold text-sm disabled:opacity-30 transition text-center;
 }

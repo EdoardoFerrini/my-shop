@@ -3,6 +3,13 @@ function App() {
     <div className="page">
       <h1 className="title">Shop</h1>
 
+      <br />
+      <input type="text" />
+      <input type="text" className="error" />
+      <input type="number" className="error" />
+      <textarea />
+      <br />
+
       <button className="btn">default</button>
       <button className="btn dark">dark</button>
       <button className="btn danger">danger</button>
