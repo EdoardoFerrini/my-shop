@@ -7,10 +7,12 @@ import { ThanksPage } from "./pages/checkout/ThanksPage";
 import { CMSPage } from "./pages/cms/CMSPage";
 import { CMSProductsPage } from "./pages/cms/products/CMSProductsPage";
 import { CMSOrdersPage } from "./pages/cms/orders/CMSOrdersPage";
+import { NavBar } from "./shared/components/core/NavBar";
 
 function App() {
   return (
     <BrowserRouter>
+      <NavBar />
       <div className="page">
         <Routes>
           <Route path="shop" element={<ShopPage />} />
