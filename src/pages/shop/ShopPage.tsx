@@ -17,14 +17,15 @@ export function ShopPage() {
       });
   }
 
-  console.log(products);
   return (
     <div>
       <h1 className="title">Shop</h1>
 
-      {products.map((p) => {
-        return <li key={p.id}>{p.name}</li>;
-      })}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-16">
+        {products.map((p) => {
+          return <div key={p.id}>{p.name}</div>;
+        })}
+      </div>
     </div>
   );
 }
