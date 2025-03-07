@@ -1,8 +1,6 @@
 import { Product } from "@/model/product";
-import PocketBase from "pocketbase";
 import { useEffect, useState } from "react";
-
-export const pb = new PocketBase(import.meta.env.VITE_POCKET_BASE_URL);
+import { pb } from "../../pocketbase";
 
 export function ShopPage() {
   const [products, setProducts] = useState<Product[]>([]);
