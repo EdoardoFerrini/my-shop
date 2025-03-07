@@ -2,7 +2,7 @@ import { Product } from "@/model/product";
 import { useEffect, useState } from "react";
 import { pb } from "../../pocketbase";
 import { ProductCard } from "./components/ProductCard";
-import { ServerError } from "@/shared/index";
+import { ServerError } from "@/shared/";
 
 export function ShopPage() {
   const [products, setProducts] = useState<Product[]>([]);

@@ -15,7 +15,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
-      "@/shared/*": ["./src/shared/*"],
+      "@/shared/*": ["./src/shared/index"],
       "@/model/*": ["./src/model/*"],
       "@/services/*": ["./src/services/*"]
     },
