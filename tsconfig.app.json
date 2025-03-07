@@ -14,6 +14,11 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
+    "paths": {
+      "@/shared/*": ["./src/shared/*"],
+      "@/model/*": ["./src/model/*"],
+      "@/services/*": ["./src/services/*"]
+    },
 
     /* Linting */
     "strict": true,
