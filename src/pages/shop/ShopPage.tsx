@@ -1,7 +1,8 @@
 import { Product } from "@/model/product";
 import PocketBase from "pocketbase";
 import { useEffect, useState } from "react";
-export const pb = new PocketBase("http://127.0.0.1:8090");
+
+export const pb = new PocketBase(import.meta.env.VITE_POCKET_BASE_URL);
 
 export function ShopPage() {
   const [products, setProducts] = useState<Product[]>([]);
