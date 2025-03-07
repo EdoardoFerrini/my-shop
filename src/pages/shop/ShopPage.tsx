@@ -23,7 +23,9 @@ export function ShopPage() {
     <div>
       <h1 className="title">Shop</h1>
 
-      <pre>{JSON.stringify(products, null, 2)}</pre>
+      {products.map((p) => {
+        return <li key={p.id}>{p.name}</li>;
+      })}
     </div>
   );
 }
