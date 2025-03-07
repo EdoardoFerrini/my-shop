@@ -2,7 +2,7 @@ import { Product } from "@/model/product";
 import { useEffect, useState } from "react";
 import { pb } from "../../pocketbase";
 import { ProductCard } from "./components/ProductCard";
-import { ServerError } from "@/shared/";
+import { ServerError, Spinner } from "@/shared/";
 
 export function ShopPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -39,7 +39,7 @@ export function ShopPage() {
       <h1 className="title">Shop</h1>
 
       {error && <ServerError />}
-      {pending && <div>loading...</div>}
+      {pending && <Spinner />}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-16">
         {products.map((p) => {
