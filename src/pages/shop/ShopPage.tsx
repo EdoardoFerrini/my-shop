@@ -6,17 +6,25 @@ import { ProductCard } from "./components/ProductCard";
 export function ShopPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [pending, setPending] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
     loadData();
   }, []);
 
   function loadData() {
+    setError(false);
     setPending(true);
     pb.collection("products")
       .getList<Product>()
       .then((res) => {
+        setError(false);
         setProducts(res.items);
+      })
+      .catch(() => {
+        setError(true);
+      })
+      .finally(() => {
         setPending(false);
       });
   }
@@ -29,7 +37,8 @@ export function ShopPage() {
     <div>
       <h1 className="title">Shop</h1>
 
-      {pending && <div>pending...</div>}
+      {error && <div>Server error</div>}
+      {pending && <div>loading...</div>}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-16">
         {products.map((p) => {
