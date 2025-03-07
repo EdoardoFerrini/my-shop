@@ -1,3 +1,8 @@
 export function CMSOrdersPage() {
-  return <div>CMS Orders</div>;
+  return (
+    <div>
+      <h1 className="title">CMS</h1>
+      Pagina Ordini
+    </div>
+  );
 }
