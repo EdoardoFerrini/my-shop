@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import logo from "../../../assets/laptop.png";
+import { CartPanel } from "./CartPanel";
 
 const isActive = (obj: { isActive: boolean }) =>
   obj.isActive ? "text-xl text-sky-400 font-bold" : "text-xl text-white";
@@ -24,6 +25,9 @@ export function NavBar() {
           <button className="btn accent lg">Cart: 0</button>
         </div>
       </div>
+
+       {/* Cart Panel*/}
+       <CartPanel />
 
       {/*Login / CMS / Logout buttons*/}
       <div className="fixed bottom-2 right-2 text-white p-5 ">
