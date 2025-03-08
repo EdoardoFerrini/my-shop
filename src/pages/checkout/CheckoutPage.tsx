@@ -1,7 +1,8 @@
-import { OrderForm } from "@/model/order-form";
-import { selectCartList, selectTotalCartCost, useCart } from "@/services/cart";
 import clsx from "clsx";
 import { ChangeEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { OrderForm } from "@/model/order-form";
+import { selectCartList, selectTotalCartCost, useCart } from "@/services/cart";
 
 export const EMAIL_REGEX =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -12,6 +13,8 @@ export function CheckoutPage() {
 
   const totalCartCost = useCart(selectTotalCartCost);
   const order = useCart(selectCartList);
+  const clearCart = useCart((state) => state.clearCart);
+  const navigate = useNavigate();
 
   function changeHandler(e: ChangeEvent<HTMLInputElement>) {
     const name = e.currentTarget.name;
@@ -20,15 +23,19 @@ export function CheckoutPage() {
     setDirty(true);
   }
 
-  function sendOrder(e: React.FormEvent<HTMLFormElement>) {
+  async function sendOrder(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
     const orderInfo: OrderForm = {
       user,
       order,
       status: "pending",
       total: totalCartCost,
     };
+
     console.log(orderInfo);
+    clearCart();
+    navigate("/thankyou");
   }
 
   const isNameValid = user.name.length;
@@ -60,7 +67,11 @@ export function CheckoutPage() {
           onChange={changeHandler}
           className={clsx({ error: !isEmailValid && dirty })}
         />
-        <button type="submit" className="btn primary" disabled={!isValid}>
+        <button
+          type="submit"
+          className={clsx("btn", { primary: !isValid, success: isValid })}
+          disabled={!isValid}
+        >
           CONFIRM ORDER
         </button>
       </form>
