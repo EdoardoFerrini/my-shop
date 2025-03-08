@@ -1,4 +1,5 @@
-import { selectTotalCartCost, useCart } from "@/services/cart";
+import { OrderForm } from "@/model/order-form";
+import { selectCartList, selectTotalCartCost, useCart } from "@/services/cart";
 import clsx from "clsx";
 import { ChangeEvent, useState } from "react";
 
@@ -10,6 +11,7 @@ export function CheckoutPage() {
   const [dirty, setDirty] = useState(false);
 
   const totalCartCost = useCart(selectTotalCartCost);
+  const order = useCart(selectCartList);
 
   function changeHandler(e: ChangeEvent<HTMLInputElement>) {
     const name = e.currentTarget.name;
@@ -20,7 +22,13 @@ export function CheckoutPage() {
 
   function sendOrder(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(user);
+    const orderInfo: OrderForm = {
+      user,
+      order,
+      status: "pending",
+      total: totalCartCost,
+    };
+    console.log(orderInfo);
   }
 
   const isNameValid = user.name.length;
