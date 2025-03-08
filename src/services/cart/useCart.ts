@@ -14,9 +14,20 @@ export interface CartState {
 export const useCart = create<CartState>((set, get) => ({
   list: [],
   addToCart: (product: Product) => {
-    const item: CartItem = { product, qty: 1 };
-    // set({ list: [...get().list, item] });
-    set((state) => ({ list: [...state.list, item] }));
+    const found = get().list.find((item) => item.product.id === product.id);
+
+    if (found) {
+      found.qty++;
+      set((state) => ({
+        list: state.list.map((item) => {
+          return item.product.id === found?.product.id ? found : item;
+        }),
+      }));
+    } else {
+      const item: CartItem = { product, qty: 1 };
+      // set({ list: [...get().list, item] });
+      set((state) => ({ list: [...state.list, item] }));
+    }
   },
   removeFromCart: (productId: string) => {},
   increaseQty: (productId: string) => {},
