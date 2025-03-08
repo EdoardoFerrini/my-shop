@@ -1,4 +1,5 @@
 import { selectTotalCartCost, useCart } from "@/services/cart";
+import clsx from "clsx";
 import { ChangeEvent, useState } from "react";
 
 export function CheckoutPage() {
@@ -29,6 +30,7 @@ export function CheckoutPage() {
           name="name"
           value={user.name}
           onChange={changeHandler}
+          className={clsx({ error: !isNameValid })}
         />
         Your email
         <input
@@ -37,8 +39,11 @@ export function CheckoutPage() {
           name="email"
           value={user.email}
           onChange={changeHandler}
+          className={clsx({ error: !isEmailValid })}
         />
-        <button className="btn primary" disabled={!isValid}>CONFIRM ORDER</button>
+        <button className="btn primary" disabled={!isValid}>
+          CONFIRM ORDER
+        </button>
       </form>
 
       <pre>{JSON.stringify(user, null, 2)}</pre>
