@@ -11,6 +11,10 @@ export function CheckoutPage() {
     setUser((state) => ({ ...state, [name]: value }));
   }
 
+  const isNameValid = user.name.length;
+  const isEmailValid = user.email.length;
+  const isValid = isNameValid && isEmailValid;
+
   return (
     <div className="max-w-sm mx-auto">
       <h1 className="title">CHECKOUT</h1>
@@ -34,7 +38,7 @@ export function CheckoutPage() {
           value={user.email}
           onChange={changeHandler}
         />
-        <button className="btn primary">CONFIRM ORDER</button>
+        <button className="btn primary" disabled={!isValid}>CONFIRM ORDER</button>
       </form>
 
       <pre>{JSON.stringify(user, null, 2)}</pre>
