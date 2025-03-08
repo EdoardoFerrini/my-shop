@@ -1,8 +1,15 @@
-import { selectCartList, selectTotalCartCost, useCart } from "@/services/cart";
+import {
+  selectCartIsEmpty,
+  selectCartList,
+  selectTotalCartCost,
+  useCart,
+} from "@/services/cart";
+import { NavLink } from "react-router-dom";
 
 export function CartPage() {
   const list = useCart(selectCartList);
   const totalCost = useCart(selectTotalCartCost);
+  const isEmpty = useCart(selectCartIsEmpty);
 
   const increaseQty = useCart((state) => state.increaseQty);
   const decreaseQty = useCart((state) => state.decreaseQty);
@@ -49,7 +56,14 @@ export function CartPage() {
         ))}
       </ul>
 
-      <div className="text-4xl text-right">Total: € {totalCost}</div>
+      <div className="text-4xl text-right my-4 mr-4">Total: € {totalCost}</div>
+      {!isEmpty && (
+        <div className="flex justify-center">
+          <NavLink to="/checkout" className="btn primary lg">
+            Confirm order
+          </NavLink>
+        </div>
+      )}
     </div>
   );
 }
