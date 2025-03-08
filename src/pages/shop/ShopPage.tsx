@@ -3,11 +3,15 @@ import { useEffect, useState } from "react";
 import { pb } from "../../pocketbase";
 import { ProductCard } from "./components/ProductCard";
 import { ServerError, Spinner } from "@/shared/";
+import { useCart, useCartPanel } from "@/services/cart";
 
 export function ShopPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [pending, setPending] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
+
+  const openCartPanel = useCartPanel((state) => state.openOverlay);
+  const addToCart = useCart((state) => state.addToCart);
 
   useEffect(() => {
     loadData();
@@ -30,9 +34,12 @@ export function ShopPage() {
       });
   }
 
+  /* 
+  scriviamo la funzione direttamente inline
   function addToCart(p: Partial<Product>) {
     console.log(p);
-  }
+  } 
+  */
 
   return (
     <div>
@@ -47,7 +54,10 @@ export function ShopPage() {
             <ProductCard
               key={p.id}
               product={p}
-              onAddToCart={() => addToCart(p)}
+              onAddToCart={() => {
+                openCartPanel();
+                addToCart(p);
+              }}
             />
           );
         })}
