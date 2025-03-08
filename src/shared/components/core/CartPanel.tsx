@@ -1,10 +1,13 @@
+import { useCartPanel } from "@/services/cart";
 import { useNavigate } from "react-router-dom";
 
 export function CartPanel() {
   const navigate = useNavigate();
+  const closeCartPanel = useCartPanel((state) => state.closeOverlay);
 
   function gotoCart() {
     navigate("cart");
+    closeCartPanel();
   }
 
   return (
