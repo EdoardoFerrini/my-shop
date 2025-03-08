@@ -18,6 +18,11 @@ export function CheckoutPage() {
     setDirty(true);
   }
 
+  function sendOrder(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    console.log(user);
+  }
+
   const isNameValid = user.name.length;
   const isEmailValid = user.email.match(EMAIL_REGEX);
   const isValid = isNameValid && isEmailValid;
@@ -28,7 +33,7 @@ export function CheckoutPage() {
 
       <div className="text-xl my-3 border-b">€ {totalCartCost}</div>
 
-      <form className="flex flex-col gap-3">
+      <form className="flex flex-col gap-3" onSubmit={sendOrder}>
         Your name:
         <input
           type="text"
@@ -47,7 +52,7 @@ export function CheckoutPage() {
           onChange={changeHandler}
           className={clsx({ error: !isEmailValid && dirty })}
         />
-        <button className="btn primary" disabled={!isValid}>
+        <button type="submit" className="btn primary" disabled={!isValid}>
           CONFIRM ORDER
         </button>
       </form>
