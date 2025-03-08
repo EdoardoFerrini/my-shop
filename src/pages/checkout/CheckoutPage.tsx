@@ -4,12 +4,15 @@ import { ChangeEvent, useState } from "react";
 
 export function CheckoutPage() {
   const [user, setUser] = useState({ name: "", email: "" });
+  const [dirty, setDirty] = useState(false);
+
   const totalCartCost = useCart(selectTotalCartCost);
 
   function changeHandler(e: ChangeEvent<HTMLInputElement>) {
     const name = e.currentTarget.name;
     const value = e.currentTarget.value;
     setUser((state) => ({ ...state, [name]: value }));
+    setDirty(true);
   }
 
   const isNameValid = user.name.length;
@@ -30,7 +33,7 @@ export function CheckoutPage() {
           name="name"
           value={user.name}
           onChange={changeHandler}
-          className={clsx({ error: !isNameValid })}
+          className={clsx({ error: !isNameValid && dirty })}
         />
         Your email
         <input
@@ -39,7 +42,7 @@ export function CheckoutPage() {
           name="email"
           value={user.email}
           onChange={changeHandler}
-          className={clsx({ error: !isEmailValid })}
+          className={clsx({ error: !isEmailValid && dirty })}
         />
         <button className="btn primary" disabled={!isValid}>
           CONFIRM ORDER
