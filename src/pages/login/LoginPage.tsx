@@ -1,23 +1,13 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { FormEvent } from "react";
+import { useLogin } from "./hooks/useLogin";
 
 export function LoginPage() {
-  const [formData, setFormData] = useState({
-    username: "hello@fabiobiondi.io",
-    password: "Fabio12345",
-  });
+  const { formData, isValid, changeHandler } = useLogin();
 
-  function changeHandler(e: ChangeEvent<HTMLInputElement>) {
-    const value = e.currentTarget.value;
-    const name = e.currentTarget.name;
-    setFormData((s) => ({ ...s, [name]: value }));
-  }
-
-  async function doLogin(e: FormEvent<HTMLFormElement>) {
+  function doLogin(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     console.log(formData);
   }
-
-  const isValid = formData.username.length && formData.password.length;
 
   return (
     <div className="page-sm">
