@@ -1,12 +1,16 @@
 import { FormEvent } from "react";
 import { useLogin } from "./hooks/useLogin";
+import { useAuth } from "@/services/auth";
 
 export function LoginPage() {
+  const login = useAuth((state) => state.login);
+
   const { formData, isValid, changeHandler } = useLogin();
 
   function doLogin(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     console.log(formData);
+    login(formData.username, formData.password);
   }
 
   return (
