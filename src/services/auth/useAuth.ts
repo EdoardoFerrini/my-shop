@@ -11,8 +11,8 @@ export interface AuthState {
 
 export const useAuth = create<AuthState>((set) => ({
   error: false,
-  token: null,
-  isLogged: false,
+  token: AuthService.getToken(),
+  isLogged: AuthService.isLogged(),
   login: async (username, password) => {
     set({ isLogged: false, error: false });
     try {
