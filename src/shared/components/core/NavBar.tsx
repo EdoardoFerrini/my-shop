@@ -8,13 +8,14 @@ import {
   useCartPanel,
 } from "@/services/cart";
 import { useAuth } from "@/services/auth";
+import { IfLogged } from "../auth/IfLogged";
 
 const isActive = (obj: { isActive: boolean }) =>
   obj.isActive ? "text-xl text-sky-400 font-bold" : "text-xl text-white";
 
 export function NavBar() {
   const navigate = useNavigate();
-  const logout = useAuth(state => state.logout);
+  const logout = useAuth((state) => state.logout);
   const isCartPanelOpened = useCartPanel((state) => state.open);
   const toggleCartPanel = useCartPanel((state) => state.toggle);
   const totalCartItems = useCart(selectTotalCartItems);
@@ -22,7 +23,7 @@ export function NavBar() {
 
   function logoutHandler() {
     logout();
-    navigate('/login')
+    navigate("/login");
   }
 
   return (
@@ -62,7 +63,11 @@ export function NavBar() {
         <NavLink to="cms" className="btn accent lg">
           cms
         </NavLink>
-        <button className="btn primary lg" onClick={logoutHandler}>logout</button>
+        <IfLogged>
+          <button className="btn primary lg" onClick={logoutHandler}>
+            logout
+          </button>
+        </IfLogged>
       </div>
     </div>
   );
