@@ -1,8 +1,10 @@
 import { FormEvent } from "react";
 import { useLogin } from "./hooks/useLogin";
-import { useAuth } from "@/services/auth";
+import { selectAuthError, useAuth } from "@/services/auth";
+import { ServerError } from "@/shared/";
 
 export function LoginPage() {
+  const error = useAuth(selectAuthError);
   const login = useAuth((state) => state.login);
 
   const { formData, isValid, changeHandler } = useLogin();
@@ -16,6 +18,8 @@ export function LoginPage() {
   return (
     <div className="page-sm">
       <h1 className="title">LOGIN</h1>
+
+      {error && <ServerError />}
 
       <form onSubmit={doLogin} className=" flex flex-col gap-3">
         <input
