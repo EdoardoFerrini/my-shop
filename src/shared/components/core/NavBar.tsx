@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../../../assets/laptop.png";
 import { CartPanel } from "./CartPanel";
 import {
@@ -7,15 +7,23 @@ import {
   useCart,
   useCartPanel,
 } from "@/services/cart";
+import { useAuth } from "@/services/auth";
 
 const isActive = (obj: { isActive: boolean }) =>
   obj.isActive ? "text-xl text-sky-400 font-bold" : "text-xl text-white";
 
 export function NavBar() {
+  const navigate = useNavigate();
+  const logout = useAuth(state => state.logout);
   const isCartPanelOpened = useCartPanel((state) => state.open);
   const toggleCartPanel = useCartPanel((state) => state.toggle);
   const totalCartItems = useCart(selectTotalCartItems);
   const isEmpty = useCart(selectCartIsEmpty);
+
+  function logoutHandler() {
+    logout();
+    navigate('/login')
+  }
 
   return (
     <div className="fixed z-10 top-0 left-0 right-0 shadow-2xl">
@@ -54,7 +62,7 @@ export function NavBar() {
         <NavLink to="cms" className="btn accent lg">
           cms
         </NavLink>
-        <button className="btn primary lg">logout</button>
+        <button className="btn primary lg" onClick={logoutHandler}>logout</button>
       </div>
     </div>
   );
