@@ -57,13 +57,16 @@ export function NavBar() {
 
       {/*Login / CMS / Logout buttons*/}
       <div className="fixed bottom-2 right-2 text-white p-5 ">
-        <NavLink to="login" className="btn accent lg">
-          login
-        </NavLink>
         <NavLink to="cms" className="btn accent lg">
           cms
         </NavLink>
-        <IfLogged>
+        <IfLogged
+          else={
+            <NavLink to="login" className="btn accent lg">
+              login
+            </NavLink>
+          }
+        >
           <button className="btn primary lg" onClick={logoutHandler}>
             logout
           </button>
