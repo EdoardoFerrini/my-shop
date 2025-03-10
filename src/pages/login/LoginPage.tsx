@@ -1,13 +1,22 @@
-import { FormEvent } from "react";
+import { FormEvent, useEffect } from "react";
 import { useLogin } from "./hooks/useLogin";
-import { selectAuthError, useAuth } from "@/services/auth";
+import { selectAuthError, selectAuthIsLogged, useAuth } from "@/services/auth";
 import { ServerError } from "@/shared/";
+import { useNavigate } from "react-router-dom";
 
 export function LoginPage() {
+  const navigate = useNavigate();
   const error = useAuth(selectAuthError);
+  const isLogged = useAuth(selectAuthIsLogged);
   const login = useAuth((state) => state.login);
 
   const { formData, isValid, changeHandler } = useLogin();
+
+  useEffect(() => {
+    if (isLogged) {
+      navigate("/cms");
+    }
+  }, [isLogged]);
 
   function doLogin(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
